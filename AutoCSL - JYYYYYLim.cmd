@@ -1,6 +1,6 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-color a & title AutoCSL v1.1alpha by JY
+color a & title AutoCSL v1.2beta by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release 1.1alpha
 
 echo: &  echo =================================================================================== & echo:
@@ -85,7 +85,7 @@ echo: & echo ===================================================================
 set /p stt=Enter your server status.
 echo: & echo =================================================================================== & echo: 
 set /p uuid=Enter the CSL ID. (4 digit number)
-echo: & echo =================================================================================== & echo:  & echo Link: %lk% & echo Gamemode:  %mode% & echo Team: %team% & echo Location: %loc% & echo Status: %stt% & echo ID: %uuid% & echo Scoreboard: &  echo ^<image^> & echo: & echo Is this correct? & echo:
+echo: & echo =================================================================================== & echo:  & echo Link: https:^/^/%lk% & echo Gamemode:  %mode% & echo Team: %team% & echo Location: %loc% & echo Status: %stt% & echo ID: %uuid% & echo Scoreboard: &  echo ^<image^> & echo: & echo Is this correct? & echo:
 set /p ch=(Y/N)
 if /i "%ch%" EQU "Y" goto :ok
 if /i "%ch%" EQU "N" goto :redo
