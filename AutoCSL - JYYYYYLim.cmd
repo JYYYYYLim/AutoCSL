@@ -1,6 +1,6 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-color a & title AutoCSL v1.2beta by JY
+color a & title AutoCSL v1.3beta by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release 1.1alpha
 
 echo: &  echo =================================================================================== & echo:
@@ -58,27 +58,35 @@ echo: & echo Invalid response!
 goto :reg
 :dallas
 set "loc=linode-dallas"
+set "mention=@US Notify"
 goto :status
 :miami
 set "loc=vultr-miami"
+set "mention=@US Notify"
 goto :status
 :fremont
 set "loc=linode-fremont"
+set "mention=@US Notify"
 goto :status
 :london
 set "loc=linode-london"
+set "mention=@EU Notify"
 goto :status
 :frankfurt
 set "loc=linode-frankfurt"
+set "mention=@EU Notify"
 goto :status
 :tokyo
 set "loc=vultr-tokyo"
+set "mention=@Asia^/Oceania Notify"
 goto :status
 :singapore
 set "loc=linode-singapore" 
+set "mention=@Asia^/Oceania Notify"
 goto :status
 :sydney
 set "loc=vultr-sydney"
+set "mention=@Asia^/Oceania Notify"
 goto :status
 :status
 echo: & echo =================================================================================== & echo: 
@@ -98,6 +106,7 @@ echo GENERATED ON %DATE% at %TIME% >> output.txt
 echo.>> output.txt
 echo =================================================================================== >> output.txt
 echo.>> output.txt
+echo %mention% >> output.txt
 echo **Link:** ^<https://%lk%^> >> output.txt
 echo **Gamemode:**  %mode% >> output.txt
 echo **Team:** %team% >> output.txt
@@ -106,8 +115,6 @@ echo **Status:** %stt% >> output.txt
 echo **ID:** %uuid% >> output.txt
 echo **Scoreboard:** >> output.txt
 echo Done^^! Press any key to exit. & pause >nul
-
-
 
 
 
