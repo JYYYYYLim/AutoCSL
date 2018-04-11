@@ -1,7 +1,7 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-color a & title AutoCSL v1.3beta by JY
-echo: &  echo =================================================================================== & echo: & echo AutoCSL - release 1.1alpha
+color a & title AutoCSL v1.4beta by JY
+echo: &  echo =================================================================================== & echo: & echo AutoCSL - release 1.4beta
 
 echo: &  echo =================================================================================== & echo:
 echo LMAO so you want it the easy way eh? & goto startup
@@ -98,7 +98,7 @@ set /p ch=(Y/N)
 if /i "%ch%" EQU "Y" goto :ok
 if /i "%ch%" EQU "N" goto :redo
 :ok
-echo:  & echo =================================================================================== & echo: & echo Result is written to output.txt in the same file. 
+echo:  & echo =================================================================================== & echo: & echo Result is written to output.txt in %~dp0.
 echo.> output.txt
 echo =================================================================================== >> output.txt
 echo.>> output.txt
@@ -114,10 +114,14 @@ echo **Location:** %loc% >> output.txt
 echo **Status:** %stt% >> output.txt
 echo **ID:** %uuid% >> output.txt
 echo **Scoreboard:** >> output.txt
+echo %mention% > raw.txt
+echo **Link:** ^<https://%lk%^> >> raw.txt
+echo **Gamemode:**  %mode% >> raw.txt
+echo **Team:** %team% >> raw.txt
+echo **Location:** %loc% >> raw.txt
+echo **Status:** %stt% >> raw.txt
+echo **ID:** %uuid% >> raw.txt
+echo **Scoreboard:** >> raw.txt
+type raw.txt | clip
 echo Done^^! Press any key to exit. & pause >nul
-
-
-
-
-
 
