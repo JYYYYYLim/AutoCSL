@@ -1,2 +1,2 @@
 # AutoCSL
-linkmanagers have a much easier life now
+deletes system32 hahahaha lol xd
