@@ -1,7 +1,7 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-color a & title AutoCSL v1.4beta by JY
-echo: &  echo =================================================================================== & echo: & echo AutoCSL - release 1.4beta
+color a & title AutoCSL v1.5b by JY
+echo: &  echo =================================================================================== & echo: & echo AutoCSL - release 1.5b
 
 echo: &  echo =================================================================================== & echo:
 echo LMAO so you want it the easy way eh? & goto startup
@@ -13,7 +13,9 @@ set /p lk=Link: (Paste the link WITHOUT https:// or http://)
 echo: &  echo =================================================================================== & echo: & echo 1 - 2TDM & echo 2 - 4TDM & echo:
 set /p mode=Gamemode: (type in the corresponding number.)
 if /i "%mode%" EQU "1" goto :2t
+if /i "%mode%" EQU "2" goto :2t
 if /i "%mode%" EQU "2" goto :4t
+if /i "%mode%" EQU "4" goto :4t
 echo: & echo Invalid response.
 goto :tdm
 :2t
@@ -26,9 +28,13 @@ goto :te
 echo:  & echo =================================================================================== & echo: & echo 1 - Blue  & echo 2 - Purple  & echo 3 - Green  & echo 4 - Red & echo:
 set /p team=Team: (Type in the number corresponding to the team color.)
 if /i "%team%" EQU "1" goto :1
+if /i "%team%" EQU "blue" goto :1
 if /i "%team%" EQU "2" goto :2
+if /i "%team%" EQU "purple" goto :2
 if /i "%team%" EQU "3" goto :3
+if /i "%team%" EQU "green" goto :3
 if /i "%team%" EQU "4" goto :4
+if /i "%team%" EQU "red" goto :4
 echo: & echo Invalid response.
 goto :te
 :1
@@ -44,12 +50,14 @@ goto :reg
 set "team=Red"
 goto :reg
 :reg
-echo: & echo =================================================================================== & echo:  & echo dl - linode-dallas & echo mi - vultr-miami & echo fr - linode-fremont & echo ld - linode-london  & echo ff - linode-frankfurt  & echo tk - vultr-tokyo  & echo sg - linode-singapore & echo sy - vultr-sydney & echo:
-set /p loc=Location: (Enter the code corresponding to the server location.)
+echo: & echo =================================================================================== & echo:  & echo dl - linode-dallas & echo mi - vultr-miami & echo la - vultr-la & echo fr - linode-fremont & echo ld - linode-london  &  echo am - vultr-amsterdam & echo ff - linode-frankfurt  & echo tk - vultr-tokyo  & echo sg - vultr-singapore & echo sy - vultr-sydney & echo:
+set /p loc=Location: 
 if /i "%loc%" EQU "dl" goto :dallas
 if /i "%loc%" EQU "mi" goto :miami
+if /i "%loc%" EQU "la" goto :la
 if /i "%loc%" EQU "fr" goto :fremont
 if /i "%loc%" EQU "ld" goto :london
+if /i "%loc%" EQU "am" goto :amsterdam
 if /i "%loc%" EQU "ff" goto :frankfurt
 if /i "%loc%" EQU "tk" goto :tokyo
 if /i "%loc%" EQU "sg" goto :singapore
@@ -64,12 +72,20 @@ goto :status
 set "loc=vultr-miami"
 set "mention=@US Notify"
 goto :status
+:la
+set "loc=vultr-la"
+set "mention=@US Notify"
+goto :status
 :fremont
 set "loc=linode-fremont"
 set "mention=@US Notify"
 goto :status
 :london
 set "loc=linode-london"
+set "mention=@EU Notify"
+goto :status
+:amsterdam
+set "loc=vultr-amsterdam"
 set "mention=@EU Notify"
 goto :status
 :frankfurt
@@ -81,7 +97,7 @@ set "loc=vultr-tokyo"
 set "mention=@Asia^/Oceania Notify"
 goto :status
 :singapore
-set "loc=linode-singapore" 
+set "loc=vultr-singapore" 
 set "mention=@Asia^/Oceania Notify"
 goto :status
 :sydney
@@ -123,5 +139,6 @@ echo **Status:** %stt% >> raw.txt
 echo **ID:** %uuid% >> raw.txt
 echo **Scoreboard:** >> raw.txt
 type raw.txt | clip
+echo Saved result to system clipboard.
 echo Done^^! Press any key to exit. & pause >nul
 
