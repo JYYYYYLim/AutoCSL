@@ -1,20 +1,17 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-set "ver=1.6b"
+set "ver=1.6.1b"
 color a & title AutoCSL v%ver% by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release %ver% & echo: &  echo =================================================================================== & echo: & echo LMAO so you want it the easy way eh? 
 if NOT exist config.cmd (
 	echo config.cmd not found. redirecting to config page...
 	goto :setup	
 )
-call config.cmd
-if /i "%browser%" EQU "cr" goto :chrome
-if /i "%browser%" EQU "ed" goto :edge
+call config.cmd & echo: & echo =================================================================================== & echo: 
+echo loading config file from %cfgtime%... 
+if /i "%browser%" EQU "cr" start chrome.exe diep.io & goto :startup
+if /i "%browser%" EQU "ed" start microsoft-edge:https://diep.io & goto :startup
 if /i "%browser%" EQU "none" goto :startup
-:chrome
-start chrome.exe diep.io & goto :startup
-:edge
-start microsoft-edge:https://diep.io & goto :startup
 :redo
 call config.cmd
 :startup
@@ -23,70 +20,38 @@ set /p lk=link: (paste the link WITHOUT https:// or http://)
 :tdm
 echo: &  echo =================================================================================== & echo: & echo 1 - 2TDM & echo 2 - 4TDM & echo:
 set /p mode=gamemode: (type in the corresponding number.)
-if /i "%mode%" EQU "1" goto :2t
-if /i "%mode%" EQU "2" goto :4t
+if /i "%mode%" EQU "1" set "mode=2TDM" & goto :te
+if /i "%mode%" EQU "2" set "mode=4TDM" & goto :te
 echo: & echo invalid response.
 goto :tdm
-:2t
-set "mode=2TDM" & goto :te
-:4t
-set "mode=4TDM" & goto :te
 :te
 echo:  & echo =================================================================================== & echo: & echo 1 - Blue  & echo 2 - Purple  & echo 3 - Green  & echo 4 - Red & echo:
 set /p team=team: (type in the number corresponding to the team color.)
-if /i "%team%" EQU "1" goto :1
-if /i "%team%" EQU "b" goto :1
-if /i "%team%" EQU "2" goto :2
-if /i "%team%" EQU "p" goto :1
-if /i "%team%" EQU "3" goto :3
-if /i "%team%" EQU "g" goto :1
-if /i "%team%" EQU "4" goto :4
-if /i "%team%" EQU "r" goto :1
+if /i "%team%" EQU "1" set "team=Blue" & goto :reg
+if /i "%team%" EQU "b" set "team=Blue" & goto :reg
+if /i "%team%" EQU "2" set "team=Purple" & goto :reg
+if /i "%team%" EQU "p" set "team=Purple" & goto :reg
+if /i "%team%" EQU "3" set "team=Green" & goto :reg
+if /i "%team%" EQU "g" set "team=Green" & goto :reg
+if /i "%team%" EQU "4" set "team=Red" & goto :reg
+if /i "%team%" EQU "r" set "team=Red" & goto :reg
 echo: & echo invalid response.
 goto :te
-:1
-set "team=Blue" & goto :reg
-:2
-set "team=Purple" & goto :reg
-:3
-set "team=Green" & goto :reg
-:4
-set "team=Red" & goto :reg
 :reg
 echo: & echo =================================================================================== & echo:  & echo dl - linode-dallas *& echo mi - vultr-miami & echo la - vultr-la & echo fr - linode-fremont *& echo ld - linode-london  *& echo am - vultr-amsterdam & echo ff - linode-frankfurt  *& echo tk - vultr-tokyo  *& echo sg - vultr-singapore & echo sy - vultr-sydney & echo: & echo * - obsolete & echo:
 set /p loc=location: (enter the code corresponding to the server location.)
-if /i "%loc%" EQU "dl" goto :dallas
-if /i "%loc%" EQU "mi" goto :miami
-if /i "%loc%" EQU "la" goto :la
-if /i "%loc%" EQU "fr" goto :fremont
-if /i "%loc%" EQU "ld" goto :london
-if /i "%loc%" EQU "am" goto :amsterdam
-if /i "%loc%" EQU "ff" goto :frankfurt
-if /i "%loc%" EQU "tk" goto :tokyo
-if /i "%loc%" EQU "sg" goto :singapore
-if /i "%loc%" EQU "sy" goto :sydney
+if /i "%loc%" EQU "dl" set "loc=linode-dallas" & set "mention=@US Notify" & goto :status
+if /i "%loc%" EQU "mi" set "loc=vultr-miami" & set "mention=@US Notify" & goto :status
+if /i "%loc%" EQU "la" set "loc=vultr-la" & set "mention=@US Notify" & goto :status
+if /i "%loc%" EQU "fr" set "loc=linode-fremont" & set "mention=@US Notify" & goto :status
+if /i "%loc%" EQU "ld" set "loc=linode-london" & set "mention=@EU Notify" & goto :status
+if /i "%loc%" EQU "am" set "loc=vultr-amsterdam" & set "mention=@EU Notify" & goto :status
+if /i "%loc%" EQU "ff" set "loc=linode-frankfurt" & set "mention=@EU Notify" & goto :status
+if /i "%loc%" EQU "tk" set "loc=vultr-tokyo" & set "mention=@Asia^/Oceania Notify" & goto :status
+if /i "%loc%" EQU "sg" set "loc=vultr-singapore"  & set "mention=@Asia^/Oceania Notify" & goto :status
+if /i "%loc%" EQU "sy" set "loc=vultr-sydney" & set "mention=@Asia^/Oceania Notify" & goto :status
 echo: & echo Invalid response!
 goto :reg
-:dallas
-set "loc=linode-dallas" & set "mention=@US Notify" & goto :status
-:miami
-set "loc=vultr-miami" & set "mention=@US Notify" & goto :status
-:la
-set "loc=vultr-la" & set "mention=@US Notify" & goto :status
-:fremont
-set "loc=linode-fremont" & set "mention=@US Notify" & goto :status
-:london
-set "loc=linode-london" & set "mention=@EU Notify" & goto :status
-:amsterdam
-set "loc=vultr-amsterdam" & set "mention=@EU Notify" & goto :status
-:frankfurt
-set "loc=linode-frankfurt" & set "mention=@EU Notify" & goto :status
-:tokyo
-set "loc=vultr-tokyo" & set "mention=@Asia^/Oceania Notify" & goto :status
-:singapore
-set "loc=vultr-singapore"  & set "mention=@Asia^/Oceania Notify" & goto :status
-:sydney
-set "loc=vultr-sydney" & set "mention=@Asia^/Oceania Notify" & goto :status
 :status
 echo: & echo =================================================================================== & echo: 
 set /p stt=Enter your server status.
@@ -133,7 +98,7 @@ goto :redo
 :pause
 echo press any key to exit. & pause >nul & exit
 :setup
-echo: &  echo =================================================================================== & echo: & echo - C O N F I G - & echo: &  echo =================================================================================== & echo:
+echo: &  echo =================================================================================== & echo: & echo - C O N F I G - & echo: & echo =================================================================================== & echo:
 :brows
 echo - Chrome & echo - Edge & echo - None & echo:
 set /p browser=select your default startup browser. Type "none" if you have an unsupported browser/don't want autostart.
@@ -165,12 +130,20 @@ set "doLoop=1" & goto :write
 set "doLoop=2" & goto :write
 :write
 echo: &  echo =================================================================================== & echo:
-echo REM =================================================================================== > config.cmd
+echo :: =================================================================================== > config.cmd
 echo.>> config.cmd
-echo REM CONFIG GENERATED ON %DATE% - %TIME% >> config.cmd
+echo :: CONFIG GENERATED ON %DATE% - %TIME% >> config.cmd
 echo.>> config.cmd
-echo REM =================================================================================== >> config.cmd 
+echo :: delete config.cmd and use autocsl normally to change any parameters. >> config.cmd
 echo.>> config.cmd
+echo :: =================================================================================== >> config.cmd 
+echo.>> config.cmd
+echo set "cfgtime=%DATE%: %TIME%" >>config.cmd
 echo set "browser=%browser%" >> config.cmd
 echo set "doLoop=%doLoop%" >> config.cmd
 echo done. delete config.cmd to change any parameters. & echo restart autocsl to use normally. & pause >nul
+
+
+
+
+
