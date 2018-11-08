@@ -1,6 +1,6 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-set "ver=1.7b"
+set "ver=1.7.2b"
 color a & title AutoCSL v%ver% by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release %ver% & echo: &  echo =================================================================================== & echo: & echo LMAO so you want it the easy way eh? 
 if NOT exist config.cmd (
@@ -21,10 +21,19 @@ if /i "%lk%" EQU "%lk2%" goto :err
 :tdm
 echo: &  echo =================================================================================== & echo: & echo 1 - 2TDM & echo 2 - 4TDM & echo:
 set /p mode=gamemode: (type in the corresponding number.)
-if /i "%mode%" EQU "1" set "mode=2TDM" & goto :te
+if /i "%mode%" EQU "1" set "mode=2TDM" & goto :2te
 if /i "%mode%" EQU "2" set "mode=4TDM" & goto :te
 echo: & echo invalid response.
 goto :tdm
+:2te
+echo:  & echo =================================================================================== & echo: & echo 1 - Blue  & echo 2 - Red & echo:
+set /p team=team: (type in the number corresponding to the team color.)
+if /i "%team%" EQU "1" set "team=Blue" & goto :reg
+if /i "%team%" EQU "b" set "team=Blue" & goto :reg
+if /i "%team%" EQU "2" set "team=Red" & goto :reg
+if /i "%team%" EQU "r" set "team=Red" & goto :reg
+echo: & echo invalid response.
+goto :2te
 :te
 echo:  & echo =================================================================================== & echo: & echo 1 - Blue  & echo 2 - Purple  & echo 3 - Green  & echo 4 - Red & echo:
 set /p team=team: (type in the number corresponding to the team color.)
@@ -104,7 +113,7 @@ goto :redo
 :pause
 echo press any key to exit. & pause >nul & exit
 :err
-set /p cfmn=you have entered the same link twice. type Y to confirm, or N to return. 
+set /p cfmn=you have entered the same link twice. ya sure about that? type Y to confirm, or N to return. 
 if /i "%cfmn%" EQU "y" goto :tdm
 if /i "%cfmn%" EQU "n" goto :startup
 echo: & echo invalid response!
@@ -154,8 +163,6 @@ echo set "cfgtime=%DATE%: %TIME%" >>config.cmd
 echo set "browser=%browser%" >> config.cmd
 echo set "doLoop=%doLoop%" >> config.cmd
 echo done. delete config.cmd to change any parameters. & echo restart autocsl to use normally. & pause >nul
-
-
 
 
 
