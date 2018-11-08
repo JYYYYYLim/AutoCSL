@@ -163,11 +163,3 @@ echo set "cfgtime=%DATE%: %TIME%" >>config.cmd
 echo set "browser=%browser%" >> config.cmd
 echo set "doLoop=%doLoop%" >> config.cmd
 echo done. delete config.cmd to change any parameters. & echo restart autocsl to use normally. & pause >nul
-
-
-
-
-
-
-
-
