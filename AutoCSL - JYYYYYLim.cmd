@@ -1,6 +1,6 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-set "ver=1.6.1b"
+set "ver=1.7b"
 color a & title AutoCSL v%ver% by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release %ver% & echo: &  echo =================================================================================== & echo: & echo LMAO so you want it the easy way eh? 
 if NOT exist config.cmd (
@@ -17,6 +17,7 @@ call config.cmd
 :startup
 echo: &  echo =================================================================================== & echo:
 set /p lk=link: (paste the link WITHOUT https:// or http://)
+if /i "%lk%" EQU "%lk2%" goto :err
 :tdm
 echo: &  echo =================================================================================== & echo: & echo 1 - 2TDM & echo 2 - 4TDM & echo:
 set /p mode=gamemode: (type in the corresponding number.)
@@ -58,9 +59,12 @@ set /p stt=Enter your server status.
 echo: & echo =================================================================================== & echo: 
 set /p uuid=Enter the CSL ID. 
 echo: & echo =================================================================================== & echo:  & echo Link: https:^/^/%lk% & echo Gamemode:  %mode% & echo Team: %team% & echo Location: %loc% & echo Status: %stt% & echo ID: %uuid% & echo Scoreboard: &  echo ^<image^> & echo: & echo is this correct? & echo:
+:loooop
 set /p ch=(Y/N)
 if /i "%ch%" EQU "Y" goto :ok
 if /i "%ch%" EQU "N" goto :redo
+echo: & echo invalid response lmao
+goto :loooop
 :ok
 echo:  & echo =================================================================================== & echo: & echo result is written to output.txt in %~dp0.
 echo.> output.txt
@@ -88,15 +92,23 @@ echo **ID:** %uuid% >> raw.txt
 echo **Scoreboard:** >> raw.txt
 type raw.txt | clip
 echo done^^!
+set "lk2=%lk%"
 if /i "%doLoop%" EQU "0" goto :exit
 if /i "%doLoop%" EQU "1" goto :loop
 if /i "%doLoop%" EQU "2" goto :pause
+::=====EVENTS=====
 :exit
 exit
 :loop
 goto :redo
 :pause
 echo press any key to exit. & pause >nul & exit
+:err
+set /p cfmn=you have entered the same link twice. type Y to confirm, or N to return. 
+if /i "%cfmn%" EQU "y" goto :tdm
+if /i "%cfmn%" EQU "n" goto :startup
+echo: & echo invalid response!
+goto :err
 :setup
 echo: &  echo =================================================================================== & echo: & echo - C O N F I G - & echo: & echo =================================================================================== & echo:
 :brows
@@ -142,6 +154,11 @@ echo set "cfgtime=%DATE%: %TIME%" >>config.cmd
 echo set "browser=%browser%" >> config.cmd
 echo set "doLoop=%doLoop%" >> config.cmd
 echo done. delete config.cmd to change any parameters. & echo restart autocsl to use normally. & pause >nul
+
+
+
+
+
 
 
 
