@@ -115,7 +115,7 @@ goto :redo
 echo press any key to exit. & pause >nul & exit
 :cstm
 echo: & echo =================================================================================== & echo:  & echo ex - exit & echo lp - loop & echo ps - pause & echo:
-set /p act=what do
+set /p act=what do 
 if /i "%act%" EQU "ex" goto :exit
 if /i "%act%" EQU "lp" goto :redo
 if /i "%act%" EQU "ps" goto :pause
