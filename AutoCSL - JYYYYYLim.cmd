@@ -1,6 +1,7 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-set "ver=1.7.3b"
+set "ver=1.7.4b"
+set "id=(undefined)"
 color a & title AutoCSL v%ver% by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release %ver% & echo: &  echo =================================================================================== & echo: & echo LMAO so you want it the easy way eh? 
 if NOT exist config.cmd (
@@ -66,7 +67,8 @@ goto :reg
 echo: & echo =================================================================================== & echo: 
 set /p stt=status? 
 echo: & echo =================================================================================== & echo: 
-set /p uuid=csl id? 
+set /p uuid=csl id? previous: ID%id%
+set "id=%uuid%"
 echo: & echo =================================================================================== & echo:  & echo Link: https:^/^/%lk% & echo Gamemode:  %mode% & echo Team: %team% & echo Location: %loc% & echo Status: %stt% & echo ID: %uuid% & echo Scoreboard: &  echo ^<image^> & echo: & echo is this correct? & echo:
 :loooop
 set /p ch=(Y/N) 
@@ -115,7 +117,7 @@ goto :redo
 echo press any key to exit. & pause >nul & exit
 :cstm
 echo: & echo =================================================================================== & echo:  & echo ex - exit & echo lp - loop & echo ps - pause & echo:
-set /p act=what do 
+set /p act=what do
 if /i "%act%" EQU "ex" goto :exit
 if /i "%act%" EQU "lp" goto :redo
 if /i "%act%" EQU "ps" goto :pause
