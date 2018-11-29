@@ -1,6 +1,6 @@
 @echo off
 @setlocal enableextensions enabledelayedexpansion
-set "ver=1.7.4b"
+set "ver=1.7.5b"
 set "id=(undefined)"
 color a & title AutoCSL v%ver% by JY
 echo: &  echo =================================================================================== & echo: & echo AutoCSL - release %ver% & echo: &  echo =================================================================================== & echo: & echo LMAO so you want it the easy way eh? 
@@ -17,18 +17,18 @@ if /i "%browser%" EQU "none" goto :startup
 call config.cmd
 :startup
 echo: &  echo =================================================================================== & echo:
-set /p lk=link: (paste the link WITHOUT https:// or http://) http://
+set /p lk=link: (paste the link WITHOUT https:// or http://) | http://
 if /i "%lk%" EQU "%lk2%" goto :err
 :tdm
 echo: &  echo =================================================================================== & echo: & echo 1 - 2TDM & echo 2 - 4TDM & echo:
-set /p mode=gamemode: (type in the corresponding number.) 
+set /p mode=gamemode: (type in the corresponding number.) ^| 
 if /i "%mode%" EQU "1" set "mode=2TDM" & goto :2te
 if /i "%mode%" EQU "2" set "mode=4TDM" & goto :te
 echo: & echo invalid response.
 goto :tdm
 :2te
 echo:  & echo =================================================================================== & echo: & echo 1 - Blue  & echo 2 - Red & echo:
-set /p team=team: (type in the number corresponding to the team color.) 
+set /p team=team: (type in the number corresponding to the team color.) ^| 
 if /i "%team%" EQU "1" set "team=Blue" & goto :reg
 if /i "%team%" EQU "b" set "team=Blue" & goto :reg
 if /i "%team%" EQU "2" set "team=Red" & goto :reg
@@ -37,7 +37,7 @@ echo: & echo invalid response.
 goto :2te
 :te
 echo:  & echo =================================================================================== & echo: & echo 1 - Blue  & echo 2 - Purple  & echo 3 - Green  & echo 4 - Red & echo:
-set /p team=team: (type in the number corresponding to the team color.) 
+set /p team=team: (type in the number corresponding to the team color.) ^| 
 if /i "%team%" EQU "1" set "team=Blue" & goto :reg
 if /i "%team%" EQU "b" set "team=Blue" & goto :reg
 if /i "%team%" EQU "2" set "team=Purple" & goto :reg
@@ -50,7 +50,7 @@ echo: & echo invalid response.
 goto :te
 :reg
 echo: & echo =================================================================================== & echo:  & echo dl - linode-dallas *& echo mi - vultr-miami & echo la - vultr-la & echo fr - linode-fremont *& echo ld - linode-london  *& echo am - vultr-amsterdam & echo ff - linode-frankfurt  *& echo tk - vultr-tokyo  *& echo sg - vultr-singapore & echo sy - vultr-sydney & echo: & echo * - obsolete & echo:
-set /p loc=location: (enter the region code corresponding to the server location.) 
+set /p loc=location: (enter the region code corresponding to the server location.) ^| 
 if /i "%loc%" EQU "dl" set "loc=linode-dallas" & set "mention=@US Notify" & goto :status
 if /i "%loc%" EQU "mi" set "loc=vultr-miami" & set "mention=@US Notify" & goto :status
 if /i "%loc%" EQU "la" set "loc=vultr-la" & set "mention=@US Notify" & goto :status
@@ -65,13 +65,13 @@ echo: & echo Invalid response!
 goto :reg
 :status
 echo: & echo =================================================================================== & echo: 
-set /p stt=status? 
+set /p stt=status? ^| 
 echo: & echo =================================================================================== & echo: 
-set /p uuid=csl id? previous: ID%id%
-set "id=%uuid%"
+set /p uuid=csl id? previous: ID%id% ^| 
+set "id=%uuid%" & echo set "id=%uuid%" >> config.cmd
 echo: & echo =================================================================================== & echo:  & echo Link: https:^/^/%lk% & echo Gamemode:  %mode% & echo Team: %team% & echo Location: %loc% & echo Status: %stt% & echo ID: %uuid% & echo Scoreboard: &  echo ^<image^> & echo: & echo is this correct? & echo:
 :loooop
-set /p ch=(Y/N) 
+set /p ch=(Y/N) ^| 
 if /i "%ch%" EQU "Y" goto :ok
 if /i "%ch%" EQU "N" goto :redo
 echo: & echo invalid response lmao
@@ -117,13 +117,13 @@ goto :redo
 echo press any key to exit. & pause >nul & exit
 :cstm
 echo: & echo =================================================================================== & echo:  & echo ex - exit & echo lp - loop & echo ps - pause & echo:
-set /p act=what do
+set /p act=what do ^| 
 if /i "%act%" EQU "ex" goto :exit
 if /i "%act%" EQU "lp" goto :redo
 if /i "%act%" EQU "ps" goto :pause
 echo: & echo invalid response!
 :err
-set /p cfmn=you have entered the same link twice. ya sure about that? type Y to confirm, or N to return. 
+set /p cfmn=you have entered the same link twice. ya sure about that? type Y to confirm, or N to return. ^| 
 if /i "%cfmn%" EQU "y" goto :tdm
 if /i "%cfmn%" EQU "n" goto :startup
 echo: & echo invalid response!
@@ -133,7 +133,7 @@ goto :err
 echo: &  echo =================================================================================== & echo: & echo - C O N F I G - & echo: & echo =================================================================================== & echo:
 :brows
 echo - Chrome & echo - Edge & echo - None & echo:
-set /p browser=select your default startup browser. Type "none" if you have an unsupported browser/don't want autostart. 
+set /p browser=select your default startup browser. Type "none" if you have an unsupported browser/don't want autostart. ^| 
 if /i "%browser%" EQU "chrome" goto :cr
 if /i "%browser%" EQU "edge" goto :ed
 if /i "%browser%" EQU "none" goto :nu
@@ -148,7 +148,7 @@ set "browser=none" & goto :stloop
 :stloop
 echo: &  echo =================================================================================== & echo:
 echo exit - exit immediately & echo loop - loop. useful when generating multiple csls. & echo nul - pause before exiting. & echo cust - tell the script what to do after every generation. & echo:
-set /p doLoop=what would you like the script to do after generating a CSL? 
+set /p doLoop=what would you like the script to do after generating a CSL? ^| 
 if /i "%doLoop%" EQU "exit" goto :noloop
 if /i "%doLoop%" EQU "loop" goto :loop
 if /i "%doLoop%" EQU "nul" goto :pause
